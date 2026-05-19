@@ -1,21 +1,22 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface UserState {
-  id: string | null;
-  email: string | null;
-  firstName: string | null;
-  lastName: string | null;
-  role: "USER" | "ADMIN" | null;
-  isEmailVerified: boolean;
+interface UserPayload {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  role: string;
 }
 
 interface AuthState {
-  user: UserState | null;
+  user: UserPayload | null;
+  token: string | null;
   isAuthenticated: boolean;
 }
 
 const initialState: AuthState = {
   user: null,
+  token: null,
   isAuthenticated: false,
 };
 
@@ -23,14 +24,14 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    // Call this when the user logs in or session is detected
-    setCredentials: (state, action: PayloadAction<UserState>) => {
-      state.user = action.payload;
+    setCredentials: (state, action: PayloadAction<{ user: UserPayload; token: string }>) => {
+      state.user = action.payload.user;
+      state.token = action.payload.token;
       state.isAuthenticated = true;
     },
-    // Call this to clear state on logout
     logOut: (state) => {
       state.user = null;
+      state.token = null;
       state.isAuthenticated = false;
     },
   },
@@ -39,6 +40,5 @@ const authSlice = createSlice({
 export const { setCredentials, logOut } = authSlice.actions;
 export default authSlice.reducer;
 
-// Selectors for easy access in components
-export const selectCurrentUser = (state: { auth: AuthState }) => state.auth.user;
-export const selectIsAuthenticated = (state: { auth: AuthState }) => state.auth.isAuthenticated;
+
+

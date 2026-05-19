@@ -42,6 +42,7 @@ const HERO_SLIDES = [
 ];
 
 export default function DashboardPage() {
+  
   const { data: stats, isLoading, isError } = useGetUserStatsQuery("stats");
   const { data: profile } = useGetProfileQuery("profile");
   const [currentSlide, setCurrentSlide] = useState(0);
