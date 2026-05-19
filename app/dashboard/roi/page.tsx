@@ -159,99 +159,7 @@ export default function InvestmentsPage() {
           </Card>
         </div>
 
-        {/* Investment Plans */}
-        <Card className="bg-card border-border">
-          <CardHeader>
-            <CardTitle>Investment Plans</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {isPlansLoading ? (
-              <div className="flex justify-center items-center py-12">
-                <Loader2 className="w-8 h-8 animate-spin text-primary" />
-              </div>
-            ) : serverPlans.length > 0 ? (
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {serverPlans.map((plan: any) => (
-                  <div
-                    key={plan._id}
-                    className={`relative p-6 rounded-xl border border-border hover:border-primary/50 transition-all cursor-pointer overflow-hidden group ${
-                      plan.category === "ROBOTAXI_FLEET" ? "border-primary/60 shadow-sm" : ""
-                    }`}
-                    onClick={() => {
-                      setSelectedPlan(plan);
-                      setIsDialogOpen(true);
-                    }}
-                  >
-                    {plan.category === "ROBOTAXI_FLEET" && (
-                      <Badge className="absolute top-2 right-2 bg-primary z-10">
-                        <Sparkles className="w-3 h-3 mr-1" />
-                        High Yield
-                      </Badge>
-                    )}
-                    
-                    {/* VISUAL IMAGE UPDATE: Renders actual asset graphic or a fallback background */}
-                    <div className="relative w-full h-28 rounded-lg overflow-hidden mb-4 bg-muted">
-                      {plan.imageUrl ? (
-                        <>
-                          <img 
-                            src={plan.imageUrl} 
-                            alt={plan.name}
-                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                            onError={(e) => {
-                              // Safe fallback handling if an unsplash link dies down the line
-                              (e.target as HTMLImageElement).src = "/images/placeholder-asset.jpg";
-                            }}
-                          />
-                          <div className={`absolute inset-0 bg-gradient-to-t ${getGradientColor(plan.category)} mix-blend-multiply`} />
-                        </>
-                      ) : (
-                        <div className={`w-full h-full bg-gradient-to-br ${getGradientColor(plan.category)}`} />
-                      )}
-                      
-                      <div className="absolute bottom-2 left-3 bg-background/90 backdrop-blur-sm py-0.5 px-2 rounded text-xs font-semibold text-foreground">
-                        {plan.category.replace("_", " ")}
-                      </div>
-                    </div>
-
-                    <div className="flex justify-between items-start mb-2">
-                      <h3 className="font-semibold text-foreground line-clamp-1">
-                        {plan.name}
-                      </h3>
-                      <span className="text-sm font-bold text-emerald-500 whitespace-nowrap ml-2">
-                        {plan.roiPercentage}% ROI
-                      </span>
-                    </div>
-
-                    <p className="text-xs text-muted-foreground line-clamp-2 min-h-[2rem] mb-3">
-                      {plan.description || "Fractional enterprise asset pool."}
-                    </p>
-
-                    <div className="flex justify-between items-center text-xs text-muted-foreground mb-4 bg-muted/40 p-2 rounded-lg">
-                      <div>
-                        <span className="block text-[10px] uppercase tracking-wider text-muted-foreground/70">Duration</span>
-                        <span className="font-medium text-foreground">{plan.durationDays} days</span>
-                      </div>
-                      <div className="text-right">
-                        <span className="block text-[10px] uppercase tracking-wider text-muted-foreground/70">Min Entry</span>
-                        <span className="font-medium text-foreground">${plan.minAmount.toLocaleString()}</span>
-                      </div>
-                    </div>
-
-                    <Button
-                      variant={plan.category === "ROBOTAXI_FLEET" ? "default" : "outline"}
-                      className="w-full gap-2 text-xs h-9"
-                    >
-                      Invest Now
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </Button>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-8 text-muted-foreground text-sm">No investment tiers active right now.</div>
-            )}
-          </CardContent>
-        </Card>
+     
 
         {/* Active & Completed Investments */}
         <Card className="bg-card border-border">
@@ -307,7 +215,7 @@ export default function InvestmentsPage() {
                                 </div>
                               </div>
                               <div className="text-right">
-                                <p className="text-2xl font-bold text-foreground">
+                                <p className="text-1xl font-bold text-foreground">
                                   ${investment.amount?.toLocaleString()}
                                 </p>
                                 <p className="text-sm text-emerald-500 font-medium">

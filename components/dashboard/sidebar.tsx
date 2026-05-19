@@ -23,6 +23,9 @@ import {
   LogOut,
   Menu,
   ChevronRight,
+  Percent,
+  LineChart,
+  CandlestickChart,
 } from "lucide-react";
 import { useState } from "react";
 import { Logo } from "../reuse/Logo";
@@ -39,11 +42,6 @@ export const sidebarLinks = [
     icon: Wallet,
   },
   {
-    title: "Investments",
-    href: "/dashboard/investments",
-    icon: TrendingUp,
-  },
-  {
     title: "Deposit",
     href: "/dashboard/deposit",
     icon: ArrowDownLeft,
@@ -54,11 +52,25 @@ export const sidebarLinks = [
     icon: ArrowUpRight,
   },
   {
+    title: "Market Stocks",
+    href: "/dashboard/stock",
+    icon: CandlestickChart, // Changed from History: visually signifies active market charts
+  },
+  {
+    title: "Investment Plan",
+    href: "/dashboard/investments",
+    icon: LineChart,        // Changed from TrendingUp: cleaner look for custom navigation blocks
+  },
+  {
+    title: "Investment ROI",
+    href: "/dashboard/roi",
+    icon: Percent,          // Fixed Casing & Changed from History: visually highlights interest rates / yield accruals
+  },
+  {
     title: "Transactions",
     href: "/dashboard/transactions",
-    icon: History,
+    icon: History,          // Left as History: represents financial ledger records
   },
- 
 ];
 
 const bottomLinks = [
@@ -88,7 +100,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
 
       {/* Primary Infrastructure Stream Navigation */}
       <ScrollArea className="flex-1 py-4">
-        <div className="px-3 space-y-1">
+        <div className="px-3 space-y-3">
           {sidebarLinks.map((link) => {
             const isActive = pathname === link.href;
             return (
@@ -145,6 +157,8 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
     </div>
   );
 }
+
+
 
 export function DashboardSidebar() {
   const [isOpen, setIsOpen] = useState(false);

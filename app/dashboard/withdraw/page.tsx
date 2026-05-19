@@ -145,7 +145,7 @@ export default function WithdrawPage() {
                         </div>
                         <span className="text-sm font-medium">{wallet.name}</span>
                       </div>
-                      <p className="text-lg font-bold">${wallet.balance.toLocaleString(undefined, { minimumFractionDigits: 2 })}</p>
+                      <p className="text-md font-bold">${wallet.balance.toLocaleString(undefined, { minimumFractionDigits: 2 })}</p>
                     </button>
                   ))}
                 </div>
@@ -278,7 +278,7 @@ export default function WithdrawPage() {
                 </div>
                 <div className="pt-3 border-t flex justify-between items-baseline">
                   <span className="font-semibold text-sm">Settlement</span>
-                  <span className="text-xl font-bold">${Number(amount || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+                  <span className="text-md font-bold">${Number(amount || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
                 </div>
               </CardContent>
             </Card>

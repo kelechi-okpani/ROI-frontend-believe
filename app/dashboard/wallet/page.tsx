@@ -100,7 +100,7 @@ export default function WalletPage() {
                   <span className="text-muted-foreground/90 font-mono tracking-wider uppercase text-[10px] block font-semibold">
                     Consolidated Net Balance
                   </span>
-                  <h2 className="text-3xl md:text-4xl font-bold font-mono tracking-tight text-foreground">
+                  <h2 className="text-2xl md:text-2xl font-bold font-mono tracking-tight text-foreground">
                     ${totalBalance.toLocaleString("en-US", { minimumFractionDigits: 2 })}
                   </h2>
                 </div>

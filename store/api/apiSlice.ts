@@ -10,7 +10,7 @@ export const BASE_URL =
   process.env.NEXT_PUBLIC_API_URL ||
   "http://localhost:3001/api";
 
-  
+
 const rawBaseQuery = fetchBaseQuery({
   baseUrl: BASE_URL,
 });
@@ -54,5 +54,20 @@ const baseQueryWithAuth = async (
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: baseQueryWithAuth,
+  
+  tagTypes: [
+    "User",
+    "Profile",
+    "Wallet",
+    "AdminWalletAddress",
+    "Transaction",
+    "InvestmentPlan",
+    "Investment",
+    "chat",
+    "Chats",
+    "Stats",
+    "Market",
+  ],
+
   endpoints: () => ({}),
 });

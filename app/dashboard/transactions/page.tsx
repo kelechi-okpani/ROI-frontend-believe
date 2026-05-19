@@ -178,7 +178,7 @@ export default function TransactionsPage() {
                     {item.label}
                   </span>
                 </div>
-                <p className="text-2xl font-bold">
+                <p className="text-1xl font-bold">
                   {item.prefix}${item.val.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </p>
               </CardContent>
@@ -243,7 +243,7 @@ export default function TransactionsPage() {
                     <TableHead className="text-right">Action</TableHead>
                   </TableRow>
                 </TableHeader>
-                <TableBody>
+                <TableBody >
                   {currentData.length > 0 ? (
                     currentData.map((tx: any) => {
                       const isWithdrawal = tx?.type?.toLowerCase() === "withdrawal";
@@ -257,17 +257,17 @@ export default function TransactionsPage() {
                           <TableCell>
                             <div className="flex items-center gap-2">
                               {getTypeIcon(tx?.type)}
-                              <span className="capitalize text-sm font-medium">
+                              <span className="capitalize text-xs font-medium">
                                 {tx?.type?.toLowerCase() || "N/A"}
                               </span>
                             </div>
                           </TableCell>
                           <TableCell>
-                            <span className={`font-semibold ${isWithdrawal ? "text-destructive" : isAdjustment ? "text-amber-600" : "text-emerald-600"}`}>
+                            <span className={`text-xs font-semibold ${isWithdrawal ? "text-destructive" : isAdjustment ? "text-amber-600" : "text-emerald-600"}`}>
                               {isWithdrawal ? "-" : "+"}${tx?.amount?.toLocaleString() ?? "0"}
                             </span>
                           </TableCell>
-                          <TableCell className="hidden lg:table-cell text-sm text-muted-foreground max-w-[200px] truncate">
+                          <TableCell className="hidden lg:table-cell text-xs text-muted-foreground max-w-[200px] truncate">
                             {tx?.method?.replace("_", " ") || "N/A"}
                             {tx?.adminNote && (
                               <span className="block text-[10px] text-amber-500 truncate" title={tx.adminNote}>
