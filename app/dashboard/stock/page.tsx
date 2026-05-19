@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useGetMarketsQuery, useCreateMarketInvestmentMutation } from "@/store/api/marketApiSlice";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -40,6 +40,46 @@ interface MarketAsset {
   lastUpdatedAt: string;
 }
 
+/**
+ * 📊 TRANSITIONAL ANIMATION PRICE COMPONENT
+ * Tracks live parameter variations over runtime intervals.
+ * Triggers distinct context flashes directly on mutations.
+ */
+function PriceTickerCell({ price, isUp }: { price: number; isUp: boolean }) {
+  const [flashClass, setFlashClass] = useState("");
+  const prevPriceRef = useRef<number>(price);
+
+  useEffect(() => {
+    // Check if the price has fundamentally shifted from its previous tick
+    if (price !== prevPriceRef.current) {
+      const visualDirectionClass = price > prevPriceRef.current 
+        ? "bg-emerald-500/30 text-emerald-400 scale-[1.02]" 
+        : "bg-rose-500/30 text-rose-400 scale-[0.98]";
+
+      // Apply physical flash state immediately
+      setFlashClass(visualDirectionClass);
+      prevPriceRef.current = price;
+
+      // Gracefully ease the color back to its standard theme level
+      const timer = setTimeout(() => {
+        setFlashClass("");
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [price]);
+
+  return (
+    <div className={`p-1.5 -m-1.5 rounded-lg transition-all duration-500 transform ease-out ${flashClass}`}>
+      <span className={`text-2xl font-black tracking-tight font-mono transition-colors duration-300 ${
+        isUp ? "text-emerald-500" : "text-rose-500"
+      }`}>
+        ${price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 4 })}
+      </span>
+    </div>
+  );
+}
+
 export default function MarketDashboard() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState<"ALL" | "CRYPTO" | "STOCK">("ALL");
@@ -50,11 +90,17 @@ export default function MarketDashboard() {
   const [validationError, setValidationError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  const { data: markets = [], isLoading, isFetching, refetch } = useGetMarketsQuery(undefined, {
-    pollingInterval: 3000, 
+  const { 
+    data: markets = [], 
+    isLoading, 
+    isFetching, 
+    refetch 
+  } = useGetMarketsQuery(undefined, {
+    pollingInterval: 60000, 
+    refetchOnFocus: true, 
+    refetchOnReconnect: true,  
   });
 
-  // Redux mutation hook injected here
   const [createMarketInvestment, { isLoading: isSubmitting }] = useCreateMarketInvestmentMutation();
 
   const getCleanTicker = (symbol: string) => {
@@ -72,7 +118,6 @@ export default function MarketDashboard() {
     return matchesSearch && matchesCategory;
   });
 
-  // Handle Contract Allocations
   const handleInitiateContract = async (e: React.FormEvent) => {
     e.preventDefault();
     setValidationError(null);
@@ -104,7 +149,6 @@ export default function MarketDashboard() {
       setSuccessMessage(`Market contract for ${getCleanTicker(selectedAsset.symbol)} deployed to processing pipeline.`);
       setAllocationAmount("");
       
-      // Auto-dismiss dialogue pane on sequence success
       setTimeout(() => {
         setSelectedAsset(null);
         setSuccessMessage(null);
@@ -178,7 +222,7 @@ export default function MarketDashboard() {
           </div>
         </div>
 
-        {/* Primary Dashboard Grid (Unified for Mobile & Desktop) */}
+        {/* Primary Dashboard Grid */}
         {isLoading ? (
           <Card className="border-border/40 bg-card/20 backdrop-blur-sm">
             <CardContent className="flex flex-col items-center justify-center py-20 space-y-4">
@@ -196,10 +240,10 @@ export default function MarketDashboard() {
                 <Card 
                   key={asset._id} 
                   onClick={() => {
-                            setSelectedAsset(asset);
-                            setValidationError(null);
-                            setSuccessMessage(null);
-                          }}
+                    setSelectedAsset(asset);
+                    setValidationError(null);
+                    setSuccessMessage(null);
+                  }}
                   className="cursor-pointer group relative bg-card/30 hover:bg-card/60 border-border/50 hover:border-border transition-all duration-300 backdrop-blur-sm overflow-hidden"
                 >
                   <div className={`absolute top-0 left-0 w-full h-[2px] transition-colors duration-300 ${
@@ -238,17 +282,13 @@ export default function MarketDashboard() {
                       </Badge>
                     </div>
 
-                    {/* Middle Row: The Primary Live Price Vector */}
+                    {/* Middle Row: The Primary Live Price Vector (with visual shifting feedback) */}
                     <div className="pt-2">
-                      <span className="text-[10px] text-muted-foreground uppercase tracking-widest block font-mono font-medium opacity-60 mb-0.5">
+                      <span className="text-[10px] text-muted-foreground uppercase tracking-widest block font-mono font-medium opacity-60 mb-1">
                         Live Value
                       </span>
                       <div className="flex items-baseline gap-2">
-                        <span className={`text-2xl font-black tracking-tight font-mono transition-colors duration-300 ${
-                          isUp ? "text-emerald-500" : isDown ? "text-rose-500" : "text-foreground"
-                        }`}>
-                          ${asset.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 4 })}
-                        </span>
+                        <PriceTickerCell price={asset.price} isUp={isUp} />
                       </div>
                     </div>
 
@@ -265,7 +305,9 @@ export default function MarketDashboard() {
                         <Button 
                           variant="ghost" 
                           size="sm" 
-                          onClick={() => {
+                          onClick={(e) => {
+                            // Prevents triggering card click redundantly
+                            e.stopPropagation(); 
                             setSelectedAsset(asset);
                             setValidationError(null);
                             setSuccessMessage(null);
@@ -339,7 +381,6 @@ export default function MarketDashboard() {
                 </p>
               </div>
 
-              {/* Status Notifications Panel */}
               {validationError && (
                 <div className="flex items-start gap-2 p-3 text-xs font-mono rounded-lg border border-rose-500/20 bg-rose-500/10 text-rose-500 animate-pulse">
                   <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
