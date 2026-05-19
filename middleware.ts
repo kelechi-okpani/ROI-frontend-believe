@@ -1,78 +1,103 @@
-// FRONTEND (Port 3000) - middleware.ts
+// middleware.ts
+import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
-import { auth } from "@/lib/auth";
 
-export default auth((req:any) => {
-  const isLoggedIn = !!req.auth;
-  const { pathname } = req.nextUrl;
+export default withAuth(
+  function middleware(req) {
+    const token = req.nextauth.token;
 
-  const isAuthPage = pathname.startsWith("/auth/login");
-  const isDashboard = pathname.startsWith("/dashboard");
+    console.log("Middleware Check - Token Payload:", token);
 
-  // Redirect logged-in users away from the login page
-  if (isAuthPage && isLoggedIn) {
-    return NextResponse.redirect(new URL("/dashboard", req.url));
+    const { pathname } = req.nextUrl;
+
+    // If an authenticated user manually browses to the login page, redirect them to their home base
+    if (pathname.startsWith("/auth/login") && token) {
+      const targetPath = token.role === "ADMIN" ? "/admin" : "/dashboard";
+      return NextResponse.redirect(new URL(targetPath, req.url));
+    }
+
+    // Role Enforcement Guard: Keep standard users out of administrative directories
+    if (pathname.startsWith("/admin") && token?.role !== "ADMIN") {
+      return NextResponse.redirect(new URL("/dashboard", req.url));
+    }
+
+    // Keep administrative users cleanly separated from base customer dashboards
+    if (pathname.startsWith("/dashboard") && token?.role === "ADMIN") {
+      return NextResponse.redirect(new URL("/admin", req.url));
+    }
+
+    return NextResponse.next();
+  },
+  {
+    callbacks: {
+      authorized: ({ token, req }) => {
+        const { pathname } = req.nextUrl;
+        
+        // Always allow the login page itself to bypass authentication checks
+        if (pathname.startsWith("/auth/login")) {
+          return true;
+        }
+        
+        // For dashboard or admin paths, require a valid decrypted token
+        // If this returns false, NextAuth handles the redirect to /auth/login natively and safely
+        // return !!token;
+      },
+    },
+    pages: {
+      signIn: "/auth/login",
+    },
+    // ⚡️ CRITICAL FIX: NextAuth v4 Middleware requires the secret passed explicitly right here 
+    // to successfully decrypt tokens during Edge-level redirects.
+    secret: process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET,
   }
-
-  // Protect the dashboard layout
-  if (isDashboard && !isLoggedIn) {
-    return NextResponse.redirect(new URL("/auth/login", req.url));
-  }
-
-  return NextResponse.next();
-});
+);
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/auth/login"],
+  // Protect the dashboard, admin panel, and intercept requests to the auth login page
+  matcher: ["/dashboard/:path*", "/admin/:path*", "/auth/login"],
 };
 
 
-// import { getToken } from "next-auth/jwt";
+
+
+// // middleware.ts
+// import { withAuth } from "next-auth/middleware";
 // import { NextResponse } from "next/server";
-// import type { NextRequest } from "next/server";
 
-// export async function middleware(req: NextRequest) {
-//   const { pathname } = req.nextUrl;
+// export default withAuth(
+//   function middleware(req) {
+//     const isLoggedIn = !!req.nextauth.token;
+//     const { pathname } = req.nextUrl;
 
-//   // Retrieve the token using the shared secret across your split apps
-//   const token = await getToken({ 
-//     req, 
-//     secret: process.env.NEXTAUTH_SECRET 
-//   });
+//     const isAuthPage = pathname.startsWith("/auth/login");
 
-//   const isAuth = !!token;
+//     // Redirect logged-in users away from the login page if they try to visit it
+//     if (isAuthPage && isLoggedIn) {
+//       return NextResponse.redirect(new URL("/dashboard", req.url));
+//     }
 
-//   // Define the route categories based on your list
-//   const isAdminRoute = pathname.startsWith("/api/admin");
-//   const isTransactionRoute = pathname.startsWith("/api/transactions");
-
-//   // 1. Authentication Guard: If no token exists for any of these routes
-//   if ((isAdminRoute || isTransactionRoute) && !isAuth) {
-//     return NextResponse.json(
-//       { success: false, message: "Unauthorized: Access denied." },
-//       { status: 401 }
-//     );
+//     return NextResponse.next();
+//   },
+//   {
+//     callbacks: {
+//       // This callback determines if the page request should be authorized.
+//       // If it returns false, the user is automatically redirected to pages.signIn (/auth/login).
+//       authorized: ({ token, req }) => {
+//         const { pathname } = req.nextUrl;
+        
+//         // Always allow the login page to load without authentication redirects
+//         if (pathname.startsWith("/auth/login")) {
+//           return true;
+//         }
+        
+//         // For everything else matched by the config filter (like /dashboard), require a token
+//         return !!token;
+//       },
+//     },
 //   }
+// );
 
-//   // 2. Authorization Guard: Specifically for admin routes
-//   if (isAdminRoute && token?.role !== "ADMIN") {
-//     return NextResponse.json(
-//       { success: false, message: "Forbidden: Admin privileges required." },
-//       { status: 403 }
-//     );
-//   }
-
-//   return NextResponse.next();
-// }
-
-// /**
-//  * The matcher handles all the specific routes you provided.
-//  * Using wildcards ensures nested paths (like /api/admin/users/123) are also protected.
-//  */
 // export const config = {
-//   matcher: [
-//     "/api/admin/:path*",      // Covers /users, /stats, /investments, /chatList, /wallet, etc.
-//     "/api/transactions/:path*",
-//     "/api/admin",             // Covers the base admin route
-//   ],
+//   // Protect the dashboard and intercept requests to the auth login page
+//   matcher: ["/dashboard/:path*", "/auth/login"],
 // };

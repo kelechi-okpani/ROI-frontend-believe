@@ -2,7 +2,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 // const LOCAL_URL = "http://localhost:3001/api";
-const LOCAL_URL = "roi-backend-believe.vercel.app/api";
+export const LOCAL_URL = "roi-backend-believe.vercel.app/api";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: LOCAL_URL,

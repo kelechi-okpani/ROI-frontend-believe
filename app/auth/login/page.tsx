@@ -34,94 +34,105 @@ export default function LoginPage() {
 
      const isFormValid = form.email && form.password && !errors.email && !errors.password;
 
-const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!isFormValid) {
-      toast.error("Please enter a valid email and password.");
+
+     const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  
+  if (!isFormValid) {
+    toast.error("Please enter a valid email and password.");
+    return;
+  }
+
+  setIsLoading(true);
+
+  try {
+    const result = await signIn("credentials", {
+      email: form.email.toLowerCase().trim(),
+      password: form.password,
+      redirect: false, // Maintain smooth client-side transitions
+    });
+
+    if (result?.error) {
+      const errorMsg = result.error === "CredentialsSignin" 
+        ? "Invalid email or password." 
+        : result.error;
+        
+      toast.error(errorMsg);
+      setIsLoading(false);
       return;
     }
 
-    setIsLoading(true);
+    // Fetch the fresh session containing our token payloads
+    const session = await getSession();
+    const userRole = session?.user?.role;
 
-    try {
-      // 1. Execute the NextAuth credential sign-in flow
-      const result = await signIn("credentials", {
-        email: form.email,
-        password: form.password,
-        redirect: false, // Prevents NextAuth from performing an automatic hard reload
-      });
-
-      if (result?.error) {
-        const errorMsg = result.error === "CredentialsSignin" 
-          ? "Invalid email or password." 
-          : result.error;
-          
-        toast.error(errorMsg);
-        setIsLoading(false);
-        return;
-      }
-
-      // 2. Fetch the newly minted active session object to check the custom user role token
-      const session = await getSession();
-      const userRole = session?.user?.role;
-
-      toast.success("Login successful! Redirecting...");
-      
-      // Refresh active session layout validation tokens across server boundaries
-      router.refresh();
-
-      // 3. Conditional routing fork depending on role payload
-      if (userRole === "ADMIN") {
-        router.replace("/admin");
-      } else {
-        router.replace("/dashboard");
-      }
-    } catch (err) {
-      toast.error("An unexpected error occurred. Please try again.");
-      setIsLoading(false);
-    }
-  };
-
-  //  const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
+    toast.success("Login successful! Syncing workspace...");
     
-  //   if (!isFormValid) {
-  //     toast.error("Please enter a valid email and password.");
-  //     return;
-  //   }
+    // ⚡️ CRITICAL: Tell the router to invalidate its local client cache vectors 
+    // before pushing the new location path stack
+    router.refresh();
 
-  //   setIsLoading(true);
+    if (userRole === "ADMIN") {
+      router.replace("/admin");
+    } else {
+      router.replace("/dashboard");
+    }
+  } catch (err) {
+    toast.error("An unexpected error occurred. Please try again.");
+    setIsLoading(false);
+  }
+};
 
-  //   try {
-  //     // Execute the NextAuth credential sign-in flow
-  //     const result = await signIn("credentials", {
-  //       email: form.email,
-  //       password: form.password,
-  //       redirect: false, // Prevents NextAuth from performing a hard page reload
-  //     });
 
-  //     if (result?.error) {
-  //       // Fallback for generic execution errors
-  //       const errorMsg = result.error === "CredentialsSignin" 
-  //         ? "Invalid email or password." 
-  //         : result.error;
+// const handleSubmit = async (e: React.FormEvent) => {
+//     e.preventDefault();
+    
+//     if (!isFormValid) {
+//       toast.error("Please enter a valid email and password.");
+//       return;
+//     }
+
+//     setIsLoading(true);
+
+//     try {
+//       // 1. Execute the NextAuth credential sign-in flow
+//       const result = await signIn("credentials", {
+//         email: form.email,
+//         password: form.password,
+//         redirect: false, // Prevents NextAuth from performing an automatic hard reload
+//       });
+
+//       if (result?.error) {
+//         const errorMsg = result.error === "CredentialsSignin" 
+//           ? "Invalid email or password." 
+//           : result.error;
           
-  //       toast.error(errorMsg);
-  //       setIsLoading(false);
-  //       return;
-  //     }
+//         toast.error(errorMsg);
+//         setIsLoading(false);
+//         return;
+//       }
 
-  //     toast.success("Login successful! Redirecting...");
+//       // 2. Fetch the newly minted active session object to check the custom user role token
+//       const session = await getSession();
+//       const userRole = session?.user?.role;
+
+//       toast.success("Login successful! Redirecting...");
       
-  //     // Refresh the active session validation state across client layouts
-  //     router.refresh();
-  //     router.replace("/dashboard");
-  //   } catch (err) {
-  //     toast.error("An unexpected error occurred. Please try again.");
-  //     setIsLoading(false);
-  //   }
-  // };
+//       // Refresh active session layout validation tokens across server boundaries
+//       router.refresh();
+
+//       // 3. Conditional routing fork depending on role payload
+//       if (userRole === "ADMIN") {
+//         router.replace("/admin");
+//       } else {
+//         router.replace("/dashboard");
+//       }
+//     } catch (err) {
+//       toast.error("An unexpected error occurred. Please try again.");
+//       setIsLoading(false);
+//     }
+//   };
+
 
 
 
