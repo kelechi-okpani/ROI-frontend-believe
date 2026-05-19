@@ -1,269 +1,94 @@
 "use client";
 
-import { useState } from "react";
-import { Navbar } from "@/components/landing/navbar";
-import { Footer } from "@/components/landing/footer";
-import { ChatWidget } from "@/components/landing/chat-widget";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
-  Mail,
-  Phone,
-  MapPin,
-  Clock,
-  Send,
-  MessageSquare,
-  Headphones,
-} from "lucide-react";
+import React from "react";
+import { Mail, Phone, MapPin, Clock, MessageSquare, Headphones, ArrowUpRight, Binary } from "lucide-react";
 
 const contactInfo = [
-  {
-    icon: Mail,
-    title: "Email Us",
-    value: "support@vestflow.com",
-    description: "We reply within 24 hours",
-  },
-  {
-    icon: Phone,
-    title: "Call Us",
-    value: "+1 (555) 123-4567",
-    description: "Mon-Fri 9am-6pm EST",
-  },
-  {
-    icon: MapPin,
-    title: "Visit Us",
-    value: "123 Financial District",
-    description: "New York, NY 10001",
-  },
-  {
-    icon: Clock,
-    title: "Working Hours",
-    value: "24/7 Online Support",
-    description: "Always here to help",
-  },
+  { icon: Mail, title: "Email Us", value: "support@vestflow.com", desc: "Response within 24h" },
+  { icon: Phone, title: "Call Us", value: "+1 (555) 123-4567", desc: "Mon-Fri 9am-6pm EST" },
+  { icon: MapPin, title: "Visit Us", value: "Financial District", desc: "New York, NY 10001" },
+  { icon: Clock, title: "Support", value: "24/7 Operations", desc: "Autonomous monitoring" },
 ];
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission
-    console.log("Form submitted:", formData);
-  };
-
   return (
-    <main className="min-h-screen">
-      <Navbar />
-
-      {/* Hero */}
-      <section className="pt-32 pb-16 bg-gradient-to-br from-primary/5 via-background to-accent/5">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <p className="text-sm font-medium text-primary mb-4 uppercase tracking-wider">
-              Contact Us
-            </p>
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-balance">
-              Get in Touch with Our Team
-            </h1>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              Have questions about our investment plans or need assistance?
-              We&apos;re here to help you on your investment journey.
-            </p>
+    <div className="w-full bg-[#FAFBFD] text-[#334155]">
+      
+      {/* 1. HEADER: DARK CANVAS WITH BACKGROUND IMAGE */}
+      <section className="relative h-[50vh] w-full flex flex-col justify-center items-center px-6 overflow-hidden bg-[#0F172A]">
+        {/* Background Atmosphere Image */}
+        <img 
+          src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1600" 
+          className="absolute inset-0 w-full h-full object-cover opacity-20"
+          alt="Tech Infrastructure"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0F172A]/80 via-[#0F172A]/40 to-[#FAFBFD] z-10" />
+        
+        <div className="relative z-20 text-center space-y-4">
+          <div className="inline-flex items-center gap-2 bg-[#2563EB]/10 border border-[#2563EB]/20 px-3 py-1 rounded-full">
+            <Binary className="w-3.5 h-3.5 text-[#2563EB]" />
+            <span className="text-[10px] font-mono tracking-[0.25em] uppercase text-blue-300">Communication Terminal</span>
           </div>
+          <h1 className="text-4xl md:text-6xl font-black tracking-tight text-white uppercase">Contact Operations</h1>
         </div>
       </section>
 
-      {/* Contact Info Cards */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-            {contactInfo.map((info) => (
-              <Card
-                key={info.title}
-                className="bg-card border-border hover:border-primary/30 transition-colors"
-              >
-                <CardContent className="pt-6">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                    <info.icon className="w-6 h-6 text-primary" />
-                  </div>
-                  <h3 className="font-semibold text-foreground mb-1">
-                    {info.title}
-                  </h3>
-                  <p className="text-foreground font-medium mb-1">
-                    {info.value}
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    {info.description}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
+      {/* 2. CONTACT DISPATCH GRID */}
+      <section className="relative z-20 -mt-16 max-w-7xl mx-auto px-6 mb-24">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {contactInfo.map((info, i) => (
+            <div key={i} className="bg-white border border-[#E2E8F0] rounded-2xl p-6 shadow-sm hover:border-[#CBD5E1] transition-all">
+              <info.icon className="w-6 h-6 text-[#2563EB] mb-4" />
+              <div className="text-sm font-bold uppercase text-[#1E293B] font-sans">{info.title}</div>
+              <div className="text-[10px] font-mono text-[#64748B] mt-1">{info.value}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 3. FORM & SIDEBAR MANIFESTO */}
+      <section className="py-16 max-w-7xl mx-auto px-6">
+        <div className="grid lg:grid-cols-12 gap-16">
+          
+          {/* FORM AREA */}
+          <div className="lg:col-span-7 space-y-8">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-[#F1F5F9] flex items-center justify-center">
+                <MessageSquare className="w-5 h-5 text-[#2563EB]" />
+              </div>
+              <h2 className="text-2xl font-black uppercase tracking-tight text-[#1E293B]">Message Submission</h2>
+            </div>
+
+            <form className="bg-white border border-[#E2E8F0] p-8 rounded-3xl space-y-6">
+              <div className="grid md:grid-cols-2 gap-6">
+                <input type="text" placeholder="Full Name" className="w-full p-4 bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl text-sm outline-none focus:border-[#2563EB]" />
+                <input type="email" placeholder="Email Address" className="w-full p-4 bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl text-sm outline-none focus:border-[#2563EB]" />
+              </div>
+              <textarea placeholder="How can we assist your infrastructure needs?" rows={6} className="w-full p-4 bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl text-sm outline-none focus:border-[#2563EB]" />
+              <button className="w-full bg-[#2563EB] text-white py-4 rounded-xl font-bold uppercase text-[10px] tracking-widest hover:bg-[#1D4ED8] transition-all flex items-center justify-center gap-2">
+                Transmit Message <ArrowUpRight className="w-4 h-4" />
+              </button>
+            </form>
           </div>
 
-          {/* Contact Form & Info */}
-          <div className="grid lg:grid-cols-2 gap-12">
-            <Card className="bg-card border-border">
-              <CardContent className="p-8">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <MessageSquare className="w-5 h-5 text-primary" />
-                  </div>
-                  <h2 className="text-xl font-semibold text-foreground">
-                    Send us a Message
-                  </h2>
-                </div>
+          {/* SIDEBAR */}
+          <div className="lg:col-span-5 space-y-6">
+            <div className="bg-[#0F172A] p-8 rounded-3xl text-white">
+              <Headphones className="w-8 h-8 mb-4 text-[#38BDF8]" />
+              <h3 className="text-xl font-bold mb-2">24/7 Live Support</h3>
+              <p className="text-xs text-slate-400 mb-6 leading-relaxed">Our autonomous and human support teams are synced for constant uptime.</p>
+              <button className="w-full py-3 bg-white/10 hover:bg-white/20 rounded-xl text-xs font-bold uppercase tracking-wider">Start Live Session</button>
+            </div>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="name">Full Name</Label>
-                      <Input
-                        id="name"
-                        placeholder="John Doe"
-                        value={formData.name}
-                        onChange={(e) =>
-                          setFormData({ ...formData, name: e.target.value })
-                        }
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="email">Email Address</Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        placeholder="john@example.com"
-                        value={formData.email}
-                        onChange={(e) =>
-                          setFormData({ ...formData, email: e.target.value })
-                        }
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="subject">Subject</Label>
-                    <Select
-                      value={formData.subject}
-                      onValueChange={(value) =>
-                        setFormData({ ...formData, subject: value })
-                      }
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a subject" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="general">General Inquiry</SelectItem>
-                        <SelectItem value="investment">
-                          Investment Question
-                        </SelectItem>
-                        <SelectItem value="support">
-                          Technical Support
-                        </SelectItem>
-                        <SelectItem value="billing">
-                          Billing & Payments
-                        </SelectItem>
-                        <SelectItem value="partnership">Partnership</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="message">Message</Label>
-                    <Textarea
-                      id="message"
-                      placeholder="Tell us how we can help you..."
-                      rows={5}
-                      value={formData.message}
-                      onChange={(e) =>
-                        setFormData({ ...formData, message: e.target.value })
-                      }
-                      required
-                    />
-                  </div>
-
-                  <Button type="submit" className="w-full gap-2">
-                    <Send className="w-4 h-4" />
-                    Send Message
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
-
-            <div className="space-y-8">
-              <Card className="bg-primary text-primary-foreground">
-                <CardContent className="p-8">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-lg bg-primary-foreground/20 flex items-center justify-center">
-                      <Headphones className="w-5 h-5" />
-                    </div>
-                    <h3 className="text-xl font-semibold">24/7 Live Support</h3>
-                  </div>
-                  <p className="text-primary-foreground/80 mb-6 leading-relaxed">
-                    Need immediate assistance? Our support team is available
-                    around the clock to help you with any questions or concerns.
-                  </p>
-                  <Button
-                    variant="secondary"
-                    className="w-full bg-primary-foreground text-primary hover:bg-primary-foreground/90"
-                  >
-                    Start Live Chat
-                  </Button>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-card border-border">
-                <CardContent className="p-8">
-                  <h3 className="text-xl font-semibold text-foreground mb-4">
-                    Frequently Asked Questions
-                  </h3>
-                  <p className="text-muted-foreground mb-6 leading-relaxed">
-                    Find quick answers to common questions about our investment
-                    platform, security measures, and account management.
-                  </p>
-                  <Button variant="outline" className="w-full" asChild>
-                    <a href="/#faq">View FAQ</a>
-                  </Button>
-                </CardContent>
-              </Card>
-
-              <div className="bg-muted/50 rounded-2xl p-8">
-                <h3 className="font-semibold text-foreground mb-4">
-                  Office Location
-                </h3>
-                <div className="aspect-video rounded-xl bg-muted flex items-center justify-center">
-                  <div className="text-center">
-                    <MapPin className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
-                    <p className="text-sm text-muted-foreground">
-                      Interactive map would appear here
-                    </p>
-                  </div>
-                </div>
+            <div className="bg-[#F8FAFC] border border-[#E2E8F0] p-8 rounded-3xl">
+              <h3 className="font-bold text-[#1E293B] mb-2">Office Vector</h3>
+              <div className="aspect-video bg-[#E2E8F0] rounded-xl flex items-center justify-center text-[10px] font-mono text-[#64748B]">
+                // STATIC MAP COORDINATES
               </div>
             </div>
           </div>
         </div>
       </section>
-
-      <Footer />
-      <ChatWidget />
-    </main>
+    </div>
   );
 }

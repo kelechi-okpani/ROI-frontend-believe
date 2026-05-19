@@ -19,14 +19,15 @@ export function Logo({
 }: LogoProps) {
   
   return (
+
     <div>
-        <Link 
+        {/* <Link 
       href={href} 
       className={cn(
         "inline-flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-lg transition-opacity hover:opacity-90 select-none shrink-0", 
         className
-      )}
-    >
+      )} */}
+    {/* > */}
       <Image
         src={logoAsset}
         alt="Platform Logo"
@@ -35,7 +36,7 @@ export function Logo({
         priority={priority}
         className="object-contain w-auto h-10 md:h-12" // Scaled from h-7/h-8 up to h-10/h-12
       />
-    </Link> 
+    {/* </Link>  */}
     </div>
    
   );
