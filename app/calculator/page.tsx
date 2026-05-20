@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Calculator, ShieldCheck, Lock, Activity, ArrowUpRight, Binary } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
+import { StockMarquee } from "@/components/reuse/StockMarquee";
 
 const plans = [
   { name: "Alpha Pipeline", roi: 12.4, duration: 30, color: "text-blue-400" },
@@ -26,7 +27,7 @@ export default function CalculatorSection() {
 
   return (
     <div className="w-full bg-[#FAFBFD] text-[#334155] font-sans">
-      
+   
       {/* 1. CALCULATOR COMMAND CENTER */}
       <section className="py-24 px-6">
         <div className="max-w-7xl mx-auto">
@@ -75,6 +76,7 @@ export default function CalculatorSection() {
         </div>
       </section>
 
+ <StockMarquee  speed={25} />
       {/* 2. INFRASTRUCTURE GALLERY */}
       <section className="py-24 bg-[#0F172A] text-white">
         <div className="max-w-7xl mx-auto px-6">

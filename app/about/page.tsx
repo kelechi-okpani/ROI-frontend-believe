@@ -12,6 +12,7 @@ import {
   Compass,
   ArrowUpRight 
 } from "lucide-react";
+import { StockMarquee } from "@/components/reuse/StockMarquee";
 
 export default function AboutPage() {
   
@@ -65,8 +66,9 @@ export default function AboutPage() {
         </div>
       </section>
 
+
       {/* METRICS DISPATCH GRID */}
-      <section className="relative z-20 -mt-16 max-w-7xl mx-auto px-6">
+      <section className="relative z-20 -mt-16 max-w-7xl mx-auto px-6 mb-9">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {stats.map((stat, idx) => (
             <div 
@@ -83,6 +85,9 @@ export default function AboutPage() {
           ))}
         </div>
       </section>
+
+
+       <StockMarquee  speed={25} />
 
       {/* DETAILED MANIFESTO BLOCK + MONITORING HERO IMAGE */}
       <section className="py-32 max-w-7xl mx-auto px-6">
@@ -222,7 +227,7 @@ export default function AboutPage() {
           </a>
         </div>
       </section>
-
+ <StockMarquee  speed={25} />
     </div>
   );
 }

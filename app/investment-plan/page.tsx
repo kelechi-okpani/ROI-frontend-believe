@@ -2,6 +2,7 @@
 
 import { CheckCircle2, Cpu, ShieldCheck, Zap, ArrowRight, Activity } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { StockMarquee } from "@/components/reuse/StockMarquee";
 
 const plans = [
   {
@@ -46,7 +47,8 @@ const plans = [
 export default function InvestmentPlans() {
   return (
     <section id="plans" className="w-full bg-[#FAFBFD] py-32 px-6">
-      <div className="max-w-7xl mx-auto">
+       <StockMarquee  speed={25} />
+      <div className="max-w-7xl mx-auto mt-8">
         
         {/* HEADER */}
         <div className="text-center max-w-3xl mx-auto mb-20 space-y-4">

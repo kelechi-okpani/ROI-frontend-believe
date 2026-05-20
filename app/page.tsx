@@ -37,6 +37,8 @@ import {
   Terminal, 
   CheckCircle
 } from "lucide-react";
+import { StockMarquee } from "@/components/reuse/StockMarquee";
+
 
 export default function CoreDashboard() {
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
@@ -63,9 +65,10 @@ export default function CoreDashboard() {
 
   return (
     <div className="w-full bg-[#FAFBFD] text-[#334155]">
+      
       {/* SECTION 1: CINEMATIC SHOWCASE VIDEO TERMINAL (HOME) */}
       <section id="home" className="relative h-screen w-full flex flex-col justify-between items-center py-24 px-4 overflow-hidden border-b border-[#E2E8F0] bg-[#0F172A]">
-        
+         <StockMarquee  speed={25} />
         {/* BACKGROUND VIDEO MEDIA CANVAS */}
         <div className="absolute inset-0 z-0">
           {/* Shimmers of vibrant cobalt blue cutting through the dark canvas */}
@@ -125,6 +128,8 @@ export default function CoreDashboard() {
         </div>
 
       </section>
+
+   
 
 
       {/* SECTION 2: LIVE TELEMETRY MATRIX BLOCK */}
@@ -198,6 +203,7 @@ export default function CoreDashboard() {
           </div>
         </div>
       </section>
+
 
       {/* SECTION 4: RISK MITIGATION WITH FULL-WIDTH IMAGE FRAME SPLIT */}
       <section className="py-32 bg-[#F8FAFC] border-t border-b border-[#E2E8F0]">
@@ -377,7 +383,7 @@ export default function CoreDashboard() {
           </form>
         </div>
       </section>
-
+ <StockMarquee  speed={25} />
     </div>
   );
 }
