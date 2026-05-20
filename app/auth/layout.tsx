@@ -23,12 +23,12 @@ export default function AuthLayout({
         <div className="absolute top-1/4 -left-24 w-96 h-96 rounded-full bg-accent/20 blur-3xl" />
         <div className="absolute bottom-1/4 right-0 w-64 h-64 rounded-full bg-primary/20 blur-3xl" />
 
-        <Link href="/" className="flex items-center gap-3 relative z-10">
+        {/* <Link href="/" className="flex items-center gap-3 relative z-10">
           <div className="w-10 h-10 rounded-xl bg-accent flex items-center justify-center">
             <TrendingUp className="w-5 h-5 text-accent-foreground" />
           </div>
           <span className="font-semibold text-2xl text-sidebar-foreground">VestFlow</span>
-        </Link>
+        </Link> */}
 
         <div className="relative z-10 space-y-8">
           <div className="space-y-3">
