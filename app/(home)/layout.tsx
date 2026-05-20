@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
-import './globals.css'
 import { ReduxProvider } from '@/store/Provider';
 import { Toaster } from "sonner";
 import { Navbar } from '@/components/landing/navbar';
@@ -98,9 +97,9 @@ export default function RootLayout({
     <html lang="en" className="bg-background">
       <body className="font-sans antialiased">
         <ReduxProvider>
-           {/* <Navbar /> */}
+           <Navbar />
             {children}
-            {/* <Footer /> */}
+            <Footer />
          <Toaster position="bottom-right" richColors />
 
         </ReduxProvider>
