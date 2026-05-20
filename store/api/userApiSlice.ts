@@ -2,8 +2,6 @@ import { apiSlice } from "./apiSlice";
 
 export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-
-    
     getUserStats: builder.query({
       query: () => "/user/stats",
       providesTags: ["Stats", "Transaction", "Investment"],
@@ -13,6 +11,13 @@ export const userApiSlice = apiSlice.injectEndpoints({
       query: () => "/user/profile",
       providesTags: ["Profile"],
     }),
+
+    // Renamed to getNotifications for better naming convention consistency
+    getNotifications: builder.query({
+      query: () => "/user/notifications",
+      providesTags: ["Notifications"],
+    }),
+
     updateProfile: builder.mutation({
       query: (data) => ({
         url: "/user/profile",
@@ -24,6 +29,10 @@ export const userApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-
-
-export const { useGetUserStatsQuery, useGetProfileQuery, useUpdateProfileMutation } = userApiSlice;
+// Correctly map the hooks to the endpoint names
+export const { 
+  useGetUserStatsQuery, 
+  useGetProfileQuery, 
+  useGetNotificationsQuery, // Note the change here
+  useUpdateProfileMutation 
+} = userApiSlice;

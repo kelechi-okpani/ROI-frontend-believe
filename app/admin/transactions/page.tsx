@@ -36,16 +36,31 @@ export default function AdminTransactions() {
   const [processingId, setProcessingId] = useState<string | null>(null)
 
   // Real-Time Action Handler for Approving / Rejecting Node Ledger Pay-ins
-  const handleReview = async (id: string, action: 'APPROVE' | 'REJECT') => {
-    setProcessingId(id)
-    try {
-      await reviewTransaction({ id, action }).unwrap()
-    } catch (err) {
-      console.error(`[TRANSACTION_REVIEW_CRASH]: Failed executing ${action} process:`, err)
-    } finally {
-      setProcessingId(null)
-    }
-  }
+  // const handleReview = async (id: string, action: 'APPROVE' | 'REJECT') => {
+  //   setProcessingId(id)
+  //   try {
+  //     await reviewTransaction({ id, action }).unwrap()
+  //   } catch (err) {
+  //     console.error(`[TRANSACTION_REVIEW_CRASH]: Failed executing ${action} process:`, err)
+  //   } finally {
+  //     setProcessingId(null)
+  //   }
+  // }
+
+      const handleReview = async (id: string, action: 'APPROVE' | 'REJECT') => {
+      // Add this safety layer
+      const confirmed = window.confirm(`Are you sure you want to ${action} this transaction?`);
+      if (!confirmed) return;
+
+      setProcessingId(id);
+      try {
+        await reviewTransaction({ id, action }).unwrap();
+      } catch (err) {
+        console.error(`[TRANSACTION_REVIEW_CRASH]: Failed executing ${action} process:`, err);
+      } finally {
+        setProcessingId(null);
+      }
+    };
 
     // Dynamic Compound Processing: Multi-layer text + state filtering mapping
     const filteredTransactions = transactions.filter((tx:any) => {

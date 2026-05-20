@@ -20,6 +20,7 @@ import {
 import { useGetProfileQuery } from "@/store/api/userApiSlice";
 import { cn } from "@/lib/utils";
 import { signOut } from "next-auth/react";
+import { NotificationHub } from "./NotificationHub";
 
 interface DashboardHeaderProps {
   title: string;
@@ -93,56 +94,7 @@ const [isLoggingOut, setIsLoggingOut] = useState(false);
           </Button>
 
           {/* Connected Notifications Hub Module */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button 
-                variant="ghost" 
-                size="icon" 
-                className="w-8 h-8 relative rounded-xl text-muted-foreground hover:text-foreground hover:bg-muted/60"
-              >
-                <Bell className="w-4 h-4" />
-                <Badge className="absolute top-1 right-1 w-3.5 h-3.5 p-0 flex items-center justify-center text-[9px] font-bold font-mono bg-red-500 text-white border-2 border-background animate-pulse">
-                  3
-                </Badge>
-              </Button>
-            </DropdownMenuTrigger>
-            
-            {/* Optimized placement behavior for responsive dropdown canvas boundaries */}
-            <DropdownMenuContent align="end" className="w-72 mt-1 rounded-xl p-1 border-border/60 bg-card/95 backdrop-blur-md shadow-lg max-w-[calc(100vw-16px)]">
-              <DropdownMenuLabel className="px-3 py-2 text-[10px] font-mono uppercase tracking-wider text-muted-foreground">
-                Network Updates
-              </DropdownMenuLabel>
-              <DropdownMenuSeparator className="bg-border/40" />
-              
-              <DropdownMenuItem className="flex flex-col items-start gap-1 p-2.5 rounded-lg cursor-pointer">
-                <div className="flex items-center gap-1.5 text-xs font-bold text-foreground">
-                  <Zap className="w-3.5 h-3.5 text-emerald-500 fill-emerald-500/10" />
-                  Megapack Yield Realized
-                </div>
-                <p className="text-[11px] text-muted-foreground leading-normal pl-5">
-                  Contract node #4012 settled alternative daily grid payout at +$134.10.
-                </p>
-              </DropdownMenuItem>
-
-              <DropdownMenuItem className="flex flex-col items-start gap-1 p-2.5 rounded-lg cursor-pointer">
-                <div className="flex items-center gap-1.5 text-xs font-bold text-foreground">
-                  <Shield className="w-3.5 h-3.5 text-blue-500" />
-                  Identity Stream Secured
-                </div>
-                <p className="text-[11px] text-muted-foreground leading-normal pl-5">
-                  Account portfolio verified against institutional hardware clearance logs.
-                </p>
-              </DropdownMenuItem>
-              
-              <DropdownMenuSeparator className="bg-border/40" />
-              <DropdownMenuItem asChild>
-                <Link href="/dashboard/notifications" className="w-full flex items-center justify-center gap-1 text-[11px] font-semibold text-primary py-1.5 hover:underline">
-                  All Activity Logs <ArrowUpRight className="w-3 h-3" />
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
+         <NotificationHub />
           {/* User Profile Identity Engine */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
