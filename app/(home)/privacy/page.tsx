@@ -5,7 +5,7 @@ import { ChatWidget } from "@/components/landing/chat-widget";
 export default function PrivacyPage() {
   return (
     <main className="min-h-screen">
-      <Navbar />
+   
 
       {/* Hero */}
       <section className="pt-32 pb-16 bg-gradient-to-br from-primary/5 via-background to-accent/5">
@@ -24,14 +24,14 @@ export default function PrivacyPage() {
       {/* Content */}
       <section className="py-16">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto prose prose-neutral dark:prose-invert">
+          <div className="max-w-7xl mx-auto prose prose-neutral dark:prose-invert">
             <div className="bg-card border border-border rounded-2xl p-8 md:p-12 space-y-8">
               <div>
                 <h2 className="text-2xl font-bold text-foreground mb-4">
                   1. Introduction
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  VestFlow (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) is committed to protecting your
+                   (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) is committed to protecting your
                   privacy. This Privacy Policy explains how we collect, use,
                   disclose, and safeguard your information when you use our
                   investment platform and services.
@@ -152,8 +152,6 @@ export default function PrivacyPage() {
         </div>
       </section>
 
-      <Footer />
-      <ChatWidget />
     </main>
   );
 }

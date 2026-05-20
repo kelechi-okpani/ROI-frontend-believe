@@ -59,7 +59,7 @@ export default function AuthLayout({
         </div>
 
         <p className="text-sidebar-foreground/40 text-sm relative z-10">
-          &copy; {new Date().getFullYear()} VestFlow. All rights reserved.
+          &copy; {new Date().getFullYear()} All rights reserved.
         </p>
       </div>
 
@@ -71,7 +71,7 @@ export default function AuthLayout({
             <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
               <TrendingUp className="w-4 h-4 text-primary-foreground" />
             </div>
-            <span className="font-semibold text-lg text-foreground">VestFlow</span>
+            <span className="font-semibold text-lg text-foreground">TS</span>
           </Link>
         </div>
 

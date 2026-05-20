@@ -140,7 +140,7 @@ export function Footer() {
         <div className="border-t border-border/60 mt-16 pt-8 space-y-4">
           <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
             <p className="text-xs font-mono text-muted-foreground/80 order-2 lg:order-1">
-              &copy; {new Date().getFullYear()} VestFlow. System Pipeline Architecture. All rights reserved.
+              &copy; {new Date().getFullYear()} System Pipeline Architecture. All rights reserved.
             </p>
             
             <p className="text-[11px] font-sans text-muted-foreground/50 max-w-2xl leading-normal order-1 lg:order-2">

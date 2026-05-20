@@ -86,7 +86,7 @@ export function Navbar() {
           </Button>
           
           <Link href="/auth/login">
-            <Button variant="ghost" className="text-xs font-mono uppercase tracking-widest px-4 py-2">
+            <Button variant="ghost" className="text-xs rounded-full font-mono uppercase tracking-widest px-4 py-2 hover:shadow-primary/20">
               Login
             </Button>
           </Link>

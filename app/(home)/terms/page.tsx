@@ -5,7 +5,6 @@ import { ChatWidget } from "@/components/landing/chat-widget";
 export default function TermsPage() {
   return (
     <main className="min-h-screen">
-      <Navbar />
 
       {/* Hero */}
       <section className="pt-32 pb-16 bg-gradient-to-br from-primary/5 via-background to-accent/5">
@@ -24,14 +23,14 @@ export default function TermsPage() {
       {/* Content */}
       <section className="py-16">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto prose prose-neutral dark:prose-invert">
+          <div className="max-w-7xl mx-auto prose prose-neutral dark:prose-invert">
             <div className="bg-card border border-border rounded-2xl p-8 md:p-12 space-y-8">
               <div>
                 <h2 className="text-2xl font-bold text-foreground mb-4">
                   1. Acceptance of Terms
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  By accessing or using VestFlow&apos;s services, you agree to be
+                  By accessing or using our services, you agree to be
                   bound by these Terms of Service and all applicable laws and
                   regulations. If you do not agree with any of these terms, you
                   are prohibited from using or accessing our services.
@@ -71,7 +70,7 @@ export default function TermsPage() {
                   4. Investment Services
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  VestFlow provides investment opportunities with varying rates
+                  We provides investment opportunities with varying rates
                   of return. All investments carry risk, including the potential
                   loss of principal. Past performance is not indicative of
                   future results. You should carefully consider your investment
@@ -130,7 +129,7 @@ export default function TermsPage() {
                   8. Limitation of Liability
                 </h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  VestFlow shall not be liable for any indirect, incidental,
+                  We shall not be liable for any indirect, incidental,
                   special, consequential, or punitive damages resulting from
                   your use of or inability to use the service. This includes,
                   but is not limited to, loss of profits, data, or other
@@ -186,9 +185,6 @@ export default function TermsPage() {
           </div>
         </div>
       </section>
-
-      <Footer />
-      <ChatWidget />
     </main>
   );
 }
