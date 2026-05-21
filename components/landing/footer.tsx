@@ -45,20 +45,7 @@ export function Footer() {
             </p>
             
             {/* CORE CONTACT MATRIX */}
-            <div className="space-y-3 pt-2">
-              <a href="mailto:support@vestflow.com" className="flex items-center gap-3 text-muted-foreground hover:text-foreground text-xs font-mono tracking-wide transition-colors group w-fit">
-                <Mail className="w-4 h-4 text-primary/70 group-hover:text-primary transition-colors" />
-                <span>support@vestflow.com</span>
-              </a>
-              <a href="tel:+15551234567" className="flex items-center gap-3 text-muted-foreground hover:text-foreground text-xs font-mono tracking-wide transition-colors group w-fit">
-                <Phone className="w-4 h-4 text-primary/70 group-hover:text-primary transition-colors" />
-                <span>+1 (555) 123-4567</span>
-              </a>
-              <div className="flex items-center gap-3 text-muted-foreground text-xs font-mono tracking-wide">
-                <MapPin className="w-4 h-4 text-primary/70" />
-                <span>New York, NY 10001, USA</span>
-              </div>
-            </div>
+           
           </div>
 
           {/* DYNAMIC LINK MATRIX: COMPANY */}

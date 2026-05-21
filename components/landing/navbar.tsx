@@ -14,9 +14,10 @@ import { Logo } from "../reuse/Logo";
 
 const navLinks = [
   { href: "/about", label: "About" },
+  { href: "/models", label: "Models" },
   { href: "/investment-plan", label: "Investment Plans" },
   { href: "/calculator", label: "Calculator" },
-    { href: "/contact", label: "Contact" },
+    // { href: "/contact", label: "Contact" },
   // { href: "#faq", label: "FAQ" },
   // { href: "/blog", label: "Blog" },
 
