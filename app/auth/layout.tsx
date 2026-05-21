@@ -1,5 +1,9 @@
+"use client";
+
+import React from "react";
 import Link from "next/link";
-import { TrendingUp } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
+import { Logo } from "@/components/reuse/Logo";
 
 export default function AuthLayout({
   children,
@@ -7,78 +11,102 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen flex">
-      {/* Left panel — branding */}
-      <div className="hidden lg:flex lg:w-1/2 bg-sidebar flex-col justify-between p-12 relative overflow-hidden">
-        {/* Subtle grid pattern */}
+    <div className="min-h-screen flex bg-slate-100 font-sans selection:bg-black selection:text-amber-500">
+      
+      {/* Left panel — Industrial Cyber Branding Panel */}
+      <div className="hidden lg:flex lg:w-1/2 bg-zinc-800 flex-col justify-between p-16 relative overflow-hidden border-r border-zinc-700">
+        
+        {/* Stark Tech Grid Background Pattern */}
         <div
-          className="absolute inset-0 opacity-10"
+          className="absolute inset-0 opacity-10 pointer-events-none"
           style={{
             backgroundImage:
-              "linear-gradient(oklch(0.55 0.18 165) 1px, transparent 1px), linear-gradient(90deg, oklch(0.55 0.18 165) 1px, transparent 1px)",
-            backgroundSize: "40px 40px",
+              "linear-gradient(to right, #71717a 1px, transparent 1px), linear-gradient(to bottom, #71717a 1px, transparent 1px)",
+            backgroundSize: "50px 50px",
           }}
         />
-        {/* Glow circles */}
-        <div className="absolute top-1/4 -left-24 w-96 h-96 rounded-full bg-accent/20 blur-3xl" />
-        <div className="absolute bottom-1/4 right-0 w-64 h-64 rounded-full bg-primary/20 blur-3xl" />
 
-        {/* <Link href="/" className="flex items-center gap-3 relative z-10">
-          <div className="w-10 h-10 rounded-xl bg-accent flex items-center justify-center">
-            <TrendingUp className="w-5 h-5 text-accent-foreground" />
-          </div>
-          <span className="font-semibold text-2xl text-sidebar-foreground">VestFlow</span>
-        </Link> */}
+        {/* Ambient Linear Vector Accent */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-bl from-zinc-600/30 via-transparent to-transparent blur-[120px] pointer-events-none" />
 
-        <div className="relative z-10 space-y-8">
-          <div className="space-y-3">
-            <h1 className="text-4xl font-bold text-sidebar-foreground leading-tight text-balance">
-              Grow your wealth with confidence
+        {/* Top Branding Section */}
+        <div className="relative z-10">
+          <Link href="/" className="inline-flex items-center gap-2.5 group transition-transform active:scale-95">
+            <Logo />
+          </Link>
+        </div>
+
+        {/* Core Narrative & High-Performance Matrix Display */}
+        <div className="relative z-10 space-y-12 my-auto max-w-lg">
+          <div className="space-y-4">
+            {/* Status Indicator */}
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 bg-zinc-700 border border-zinc-600 rounded-xs">
+              <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse" />
+              <span className="text-[10px] font-medium tracking-widest text-zinc-300 uppercase">
+                Node Connection Secure
+              </span>
+            </div>
+            
+            <h1 className="text-4xl font-semibold uppercase tracking-tight text-zinc-100 leading-[1.1] text-balance">
+              Autonomous <br />
+              Capital Routing
             </h1>
-            <p className="text-sidebar-foreground/70 text-lg leading-relaxed">
-              Join over 50,000 investors who trust VestFlow to build their financial future with smart, transparent investment plans.
+            <p className="text-zinc-300 text-sm leading-relaxed font-light">
+              Deploy structural capital into tokenized high-velocity arbitrage channels, automated grid infrastructure, and decentralized computing pipelines.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          {/* Stark Metric Matrix */}
+          <div className="grid grid-cols-2 gap-px bg-zinc-600 border border-zinc-600">
             {[
-              { value: "$2.4B+", label: "Assets managed" },
-              { value: "50K+", label: "Active investors" },
-              { value: "99.9%", label: "Uptime reliability" },
-              { value: "24/7", label: "Expert support" },
+              { value: "$428.5M", label: "Fleet Total Value Locked" },
+              { value: "1.2ms", label: "Execution Latency" },
+              { value: "24,592", label: "Active Network Nodes" },
+              { value: "99.99%", label: "Pipeline Uptime" },
             ].map((stat) => (
               <div
                 key={stat.label}
-                className="bg-sidebar-accent rounded-xl p-4 border border-sidebar-border"
+                className="bg-zinc-700 p-5 flex flex-col justify-between min-h-[90px]"
               >
-                <div className="text-2xl font-bold text-accent">{stat.value}</div>
-                <div className="text-sm text-sidebar-foreground/60 mt-1">{stat.label}</div>
+                <div className="text-xl font-light text-zinc-100 tracking-tight">{stat.value}</div>
+                <div className="text-[10px] font-medium tracking-wider uppercase text-zinc-400 mt-2">
+                  {stat.label}
+                </div>
               </div>
             ))}
           </div>
         </div>
 
-        <p className="text-sidebar-foreground/40 text-sm relative z-10">
-          &copy; {new Date().getFullYear()} All rights reserved.
-        </p>
+        {/* Footer Integrity Compliance Notice */}
+        <div className="relative z-10 flex items-center justify-between border-t border-zinc-700 pt-6">
+          <p className="text-zinc-400 text-[10px] uppercase tracking-widest font-mono">
+            &copy; {new Date().getFullYear()} Tesla infrastructure.
+          </p>
+          <div className="flex items-center gap-1.5 text-zinc-400">
+            <ShieldCheck className="w-3.5 h-3.5" strokeWidth={1.5} />
+            <span className="text-[9px] uppercase tracking-widest font-mono">SEC Compliant Architecture</span>
+          </div>
+        </div>
       </div>
 
-      {/* Right panel — form */}
-      <div className="w-full lg:w-1/2 flex flex-col">
-        {/* Mobile logo */}
-        <div className="lg:hidden flex items-center justify-between p-6 border-b border-border">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-              <TrendingUp className="w-4 h-4 text-primary-foreground" />
-            </div>
-            <span className="font-semibold text-lg text-foreground">TS</span>
+      {/* Right panel — Balanced Form Container */}
+      <div className="w-full lg:w-1/2 flex flex-col bg-slate-50">
+        
+        {/* Mobile Navigation Bar */}
+        <div className="lg:hidden flex items-center justify-between p-6 border-b border-slate-200">
+          <Link href="/" className="flex items-center gap-2.5 group transition-transform active:scale-95">
+            <Logo />
           </Link>
         </div>
 
-        <div className="flex-1 flex items-center justify-center p-6 sm:p-10">
-          <div className="w-full max-w-md">{children}</div>
+        {/* Center Auth Form Render Area */}
+        <div className="flex-1 flex items-center justify-center p-6 sm:p-12 md:p-16">
+          <div className="w-full max-w-sm">
+            {children}
+          </div>
         </div>
       </div>
+
     </div>
   );
 }

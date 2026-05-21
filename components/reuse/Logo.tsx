@@ -2,42 +2,42 @@
 
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { cn } from "@/lib/utils";
 import logoAsset from "@/public/Logo_T.png"; 
 
 interface LogoProps {
   className?: string;
-  href?: string;
   priority?: boolean;
 }
 
 export function Logo({ 
   className, 
-  href = "/dashboard", 
   priority = true 
 }: LogoProps) {
   
   return (
-
-    <div>
-        {/* <Link 
-      href={href} 
-      className={cn(
-        "inline-flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-lg transition-opacity hover:opacity-90 select-none shrink-0", 
-        className
-      )} */}
-    {/* > */}
-      <Image
-        src={logoAsset}
-        alt="Platform Logo"
-        width={300} // Increased base bounding box to prevent layout cropping
-        height={80} 
-        priority={priority}
-        className="object-contain w-auto h-10 md:h-12" // Scaled from h-7/h-8 up to h-10/h-12
-      />
-    {/* </Link>  */}
+    <div className={cn("flex items-center gap-1.5 sm:gap-3 select-none max-w-full", className)}>
+      {/* Responsive Logo Sizing */}
+      <div className="shrink-0">
+        <Image
+          src={logoAsset}
+          alt="Platform Logo"
+          width={300} 
+          height={80} 
+          priority={priority}
+          className="object-contain w-auto h-8 sm:h-10 md:h-12" 
+        />
+      </div>
+      
+      {/* Responsive Separator Line */}
+      <span className="text-gray-300 text-base sm:text-xl font-light shrink-0" aria-hidden="true">
+        |
+      </span>
+      
+      {/* Fully Responsive Typography */}
+      <span className="text-[10px] xs:text-xs sm:text-sm font-black tracking-[0.12em] sm:tracking-[0.20em] text-black uppercase truncate min-w-0 raw-tracking">
+        Infrastructure
+      </span>
     </div>
-   
   );
 }
