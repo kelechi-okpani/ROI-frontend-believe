@@ -98,6 +98,7 @@ export default function AuthLayout({
             <Logo />
           </Link>
         </div>
+        
 
         {/* Center Auth Form Render Area */}
         <div className="flex-1 flex items-center justify-center p-6 sm:p-12 md:p-16">
