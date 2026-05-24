@@ -10,10 +10,9 @@ import { TrendingUp, Users, DollarSign, ArrowUp, AlertCircle, RefreshCw } from '
 const COLORS = ['#3b82f6', '#f59e0b', '#10b981', '#ef4444']
 
 export default function AdminDashboard() {
-  const { data: serverResponse, isLoading, isError, refetch } = useGetAdminStatsQuery() as any
-      
-  // Safely extract parts from your structured API design
-  const statsSummary = serverResponse?.summary
+       const { data: serverResponse, isLoading, isError, refetch } = useGetAdminStatsQuery() as any
+
+       const statsSummary = serverResponse?.summary
   const rawData = serverResponse?.rawData
 
   // 1. Helper function to format numbers gracefully as localized currency figures

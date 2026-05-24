@@ -264,7 +264,7 @@ export default function CoreDashboard() {
             {/* IMAGE CONTAINER */}
             <div className="relative h-56 w-full rounded overflow-hidden border border-[#E2E2E2] bg-neutral-900 shadow-sm">
               <img 
-                src="https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&q=80&w=600" 
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTehh24SnnPlY7g5fV41rQcCsqGB9Yc8G-Ux10A0nvHaqXNUpwG6MGIXkgGGYALaldRH3Y9_7VOCIluXZVw8jCPamOyRmeq7n7MQZTVpZhk&s=10" 
                 alt="Factory production line" 
                 className="w-full h-full object-cover grayscale brightness-90 contrast-115 hover:grayscale-0 transition-all duration-700"
               />
@@ -378,7 +378,7 @@ export default function CoreDashboard() {
                 term: "Always On", 
                 entry: "1 Unit", 
                 focus: "Standard Wall Batteries",
-                img: "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&q=80&w=500" 
+                img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDNrAxsj6-q5V4HJttg-tj-2HcDsf-pYGRrcXducbR4Mq5T3jGypK90mVHQehybd3terGTeneMzaaptMOET3oSUfOxb00M2sZjpOGxGYSW&s=10" 
               },
               { 
                 name: "Large Business Pack", 
