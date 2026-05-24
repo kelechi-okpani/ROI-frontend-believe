@@ -23,7 +23,6 @@ export default function AdminDashboard() {
       maximumFractionDigits: 0
     }).format(value)
   }
-
   // 2. Compute Monthly Time-Series Matrix for Area, Bar, and Line Charts
   const processedChartData = useMemo(() => {
     if (!rawData) return []
