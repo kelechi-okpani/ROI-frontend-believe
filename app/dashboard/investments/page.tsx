@@ -51,6 +51,9 @@ export default function InvestmentsPage() {
   const activeInvestments = serverInvestments.filter((inv: any) => inv.status === "ACTIVE" || inv.status === "PENDING");
   const completedInvestments = serverInvestments.filter((inv: any) => inv.status === "COMPLETED");
 
+
+  console.log(activeInvestments, "activeInvestments...")
+
   const totalInvested = activeInvestments.reduce((acc: number, inv: any) => acc + inv.amount, 0);
   const totalProfit = serverInvestments.reduce((acc: number, inv: any) => acc + (inv.accruedProfit || 0), 0);
 
@@ -68,6 +71,8 @@ export default function InvestmentsPage() {
       await createInvestment({
         planId: selectedPlan._id,
         amount: amountNum,
+        durationDays: selectedPlan?.durationDays
+        
       }).unwrap();
 
       toast.success("Investment request submitted for approval");
@@ -318,10 +323,10 @@ export default function InvestmentsPage() {
 
                             {/* Data metrics from your data payload */}
                             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 my-4 p-3 rounded-lg bg-background/50 border border-border/40 text-xs font-mono">
-                              <div>
+                              {/* <div>
                                 <span className="text-muted-foreground block text-[10px] uppercase tracking-wider">Current Profit</span>
                                 <span className="font-bold text-foreground">${(investment.profit || 0).toLocaleString()}</span>
-                              </div>
+                              </div> */}
                               <div>
                                 <span className="text-muted-foreground block text-[10px] uppercase tracking-wider">Total Earned</span>
                                 <span className="font-bold text-foreground">${(investment.totalEarned || 0).toLocaleString()}</span>
@@ -340,7 +345,8 @@ export default function InvestmentsPage() {
                                   <span>{investment.status === "PENDING" ? "Activation Queue" : `${daysLeft} days remaining`}</span>
                                 </div>
                                 <span className="text-muted-foreground">
-                                  {progress}% complete
+                                  {/* {progress}% complete */}
+                                  {investment.durationDays} to complete
                                 </span>
                               </div>
                             </div>

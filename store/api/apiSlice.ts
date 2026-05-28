@@ -8,7 +8,8 @@ import { getSession } from "next-auth/react";
 
 export const BASE_URL =
   process.env.NEXT_PUBLIC_API_URL ||
-  "http://localhost:3001/api";
+  "http://localhost:8000/api";
+  // "http://localhost:3001/api";
 
 
 const rawBaseQuery = fetchBaseQuery({

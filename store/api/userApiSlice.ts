@@ -4,7 +4,8 @@ export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getUserStats: builder.query({
       query: () => "/user/stats",
-      providesTags: ["Stats", "Transaction", "Investment"],
+      providesTags: ["Stats"],
+      // providesTags: ["Stats", "Transaction", "Investment"],
     }),
 
     getProfile: builder.query({
