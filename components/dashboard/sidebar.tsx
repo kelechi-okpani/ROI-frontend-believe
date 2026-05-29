@@ -26,9 +26,12 @@ import {
   Percent,
   LineChart,
   CandlestickChart,
+  Loader2,
 } from "lucide-react";
 import { useState } from "react";
 import { Logo } from "../reuse/Logo";
+import { signOut } from "next-auth/react";
+
 
 export const sidebarLinks = [
   {
@@ -86,7 +89,20 @@ const bottomLinks = [
   // },
 ];
 function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const pathname = usePathname();
+
+
+   const handleLogout = async () => {
+      try {
+        setIsLoggingOut(true);
+        await signOut({ callbackUrl: "/auth/login" });
+      } catch (error) {
+        console.error("Sign-out error:", error);
+        setIsLoggingOut(false);
+      }
+    };
+
 
   return (
     /* Tesla Dark Console Canvas */
@@ -144,15 +160,24 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
           );
         })}
         
-        <Link href="/auth/login" onClick={onNavigate} className="block">
+  
           <Button
+                onClick={handleLogout}
+                disabled={isLoggingOut}
             variant="ghost"
             className="w-full justify-start gap-3.5 h-10 px-4 text-zinc-400 text-xs font-medium tracking-wide rounded-xl transition-all duration-200 hover:text-red-400 hover:bg-red-500/5 group"
           >
-            <LogOut className="w-4 h-4 text-zinc-500 group-hover:text-red-400 transition-colors" />
-            <span className="tracking-tight">Logout Terminal</span>
+              {isLoggingOut ? (
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                ) : (
+                   <LogOut className="w-4 h-4 text-zinc-500 group-hover:text-red-400 transition-colors" />
+                )}
+              
+
+          
+            <span className="tracking-tight">Logout </span>
           </Button>
-        </Link>
+     
       </div>
     </div>
   );
